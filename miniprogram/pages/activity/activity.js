@@ -12,7 +12,7 @@ Page({
 
   data: {
     bar: false,
-    page: -1,
+    page: 1,
     yyy: {
       state: false, // 开始状态
       end: true, // 结束状态
@@ -53,7 +53,7 @@ Page({
     //编写摇一摇方法
     function shake(acceleration) {
       if (!yyy.state || yyy.look || yyy.end) return;
-      var nowTime = new Date().getTime();
+      var nowTime = Date.now();
       if (nowTime - lastTime > 100) {
         var diffTime = nowTime - lastTime;
         lastTime = nowTime;
@@ -141,11 +141,12 @@ Page({
 
         // 开始摇
         play: function() {
-
           let _this = this;
 
           if (!app.globalData.user) return _this.error = '请先点击授权';
 
+          if (self.data.yyy.state && self.data.yyy.count) return _this.error = '正在进行活动!请稍后再试...';
+          
           // 如果是已参赛者 则 显示列表 否则 参赛
           yyyBase.where({
             _openid: app.globalData.user.openId
@@ -225,6 +226,12 @@ Page({
                           interval1,
                           interval2;
 
+                        let n = 0;
+
+                        let jieliu = null,
+                          jieliuState = true,
+                          lookMs = null;
+
                         _this.interval.push(interval = setInterval(() => {
                           yyy.number--;
                           if (yyy.number <= 0) {
@@ -234,7 +241,7 @@ Page({
                               state: true,
                               end: false,
                               speed: data.yyy_lm,
-                              outDate: new Date().getTime() + data.yyy_time * 1000
+                              outDate: Date.now() + data.yyy_time * 1000
                             })
 
                             // 记录ID 第一次
@@ -250,39 +257,47 @@ Page({
 
                             // 参赛者列表
                             _this.interval.push(interval2 = setInterval(() => {
-
-                              yyyBase.orderBy('count', 'desc').get({
-                                success: res => {
-                                  // 活动重置判断
-                                  if (!res.data.length && self.data.yyy.list.length) {
-                                    self.setData({
-                                      toast: {
-                                        text: "管理员已将活动重置,数据已刷新!",
-                                        icon: "loading",
-                                        hideTime: 4000
-                                      }
-                                    });
-                                    this.unData();
+                              // [节流算法]
+                              let count = yyy.count;
+                              if (count !== old_count) {
+                                lookMs && (clearTimeout(lookMs), lookMs = null);
+                              } else {
+                                !lookMs && (lookMs = yyyBase.orderBy('count', 'desc').get({
+                                  success: res => {
+                                    // 活动重置判断
+                                    if (!res.data.length && self.data.yyy.list.length) {
+                                      self.setData({
+                                        toast: {
+                                          text: "管理员已将活动重置,数据已刷新!",
+                                          icon: "loading",
+                                          hideTime: 4000
+                                        }
+                                      });
+                                      this.unData();
+                                    }
+                                    _this.save('list', res.data);
                                   }
-                                  _this.save('list', res.data);
-                                }
-                              });
+                                }));
+                              }
 
                             }, 2000));
 
                             // 开始后的倒计时
                             _this.interval.push(interval1 = setInterval(() => {
-                              let date = (yyy.outDate - new Date().getTime()) / 1000;
+                              let date = (yyy.outDate - Date.now()) / 1000;
 
-                              // 更新记录
+                              // 更新记录 [节流算法]
                               let count = yyy.count;
                               if (count !== old_count) {
                                 old_count = count;
+                                jieliuState = true;
+                              } else if (jieliuState) {
                                 yyyBase.doc(_this._ID).update({
                                   data: {
                                     count
                                   }
                                 });
+                                jieliuState = false;
                               }
 
                               // 倒计时结束
@@ -294,6 +309,11 @@ Page({
                                   yyy: yyy
                                 });
                                 clearInterval(interval1);
+                                yyyBase.doc(_this._ID).update({
+                                  data: {
+                                    count
+                                  }
+                                });
                                 // 十分钟后停止更新
                                 setTimeout(() => {
                                   clearInterval(interval2);
