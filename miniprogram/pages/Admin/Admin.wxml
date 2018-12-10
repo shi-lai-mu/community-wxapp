@@ -1,0 +1,39 @@
+<!--pages/Admin/Admin.wxml-->
+<view wx:if="{{!admin}}" style='background-color: #3d3b60' class='max-width-height'>
+  <image src='/icon.png'></image>
+  <text class='title'>沈家本管理系统</text>
+  <text class='title-h3'>[测试版]</text>
+  <view class='row'>
+    <input bindinput='setValue' id='user'></input>
+    <input bindinput='setValue' id='pass' type='password'></input>
+    <button bindtap='login'>登录</button>
+  </view>
+</view>
+
+<view wx:if="{{admin}}" class='adminBox'>
+  <view class='nav-left {{ nav.className }} {{ nav.unwind ? "unwind" : "" }}' bindtap='navClick'>
+    <view wx:for="{{nav.left}}" data-index='{{index}}' wx:key='**this' class='{{item.className}}'>
+      <icon class='iconfont icon-{{item.icon}}'></icon>
+      <text>{{item.name}}</text>
+    </view>
+    <view class='bottom' bindtap='toggleMe'>
+      <icon class='iconfont icon-hangzhengchufa'></icon>
+    </view>
+  </view>
+  <view class='content'>
+  
+
+    <include wx:if='{{nav.upElement == 0}}' src="pages/home.wxml"/>
+
+    <include wx:if='{{nav.upElement == 1}}' src="pages/b.wxml"/>
+
+    <include wx:if='{{nav.upElement == 2}}' src="pages/c.wxml"/>
+
+    <include wx:if='{{nav.upElement == 4}}' src="pages/user.wxml"/>
+
+    <include wx:if='{{nav.upElement == 6}}' src="pages/activity.wxml"/>
+
+    <include wx:if='{{meInfo}}' src="pages/meInfo.wxml"/>
+  </view>
+</view>
+<msg data="{{toast}}"></msg>

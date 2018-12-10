@@ -1,0 +1,245 @@
+/**app.wxss**/
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 12px;
+} 
+
+.warp {
+  width: 100vw;
+  color: #333;
+}
+
+.clearflx::after {
+  content: '';
+  width: 100%;
+  height: 100%;
+  display: block;
+  clear: both;
+}
+
+.bg {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  width: 100vw;
+  height: 165px;
+  background-color: #4a6efd;
+}
+.box {
+  overflow: auto;
+  width: 90vw;
+  margin: 10px auto;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+}
+.max-width-height {
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+.msg {
+  position: fixed;
+  bottom: 5vh;
+  right: 0;
+  padding-right: 10px;
+  min-width: 50vw;
+  line-height: 10vw;
+  background-color: white;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, .3);
+  border-radius: 5px 0 0 5px;
+  transition: 1s;
+  transform: translateX(100%);
+}
+.msg-show {
+  transform: translateX(0);
+}
+.error {
+  background-color: #ffa7a1;
+  color: red;
+}
+.success {
+  background-color: #a7ffab;
+  color: #00b12c;
+}
+.warning {
+  background-color: #ffcb9a;
+  color: #cc7400;
+}
+.zhiwen, .saoma {
+  background-color: #aafff4;
+  color: #0087b1;
+}
+.loading {
+  background-color: #aeadff;
+  color: #0003a8;
+}
+.msg icon {
+  margin: 0 10px;
+  vertical-align: middle;
+  font-size: 25px;
+}
+.msg text {
+  vertical-align: middle;
+  font-size: 15px;
+}
+
+/* 表格样式 */
+.table-max-width {
+  overflow-x: auto;
+  width: 100vw;
+}
+.table-max-width > .table {
+  width: 300vw;
+}
+.table {
+  --table-color: #ccc;
+  width: 90%;
+  margin: 0 auto;
+  border: 1px solid var(--table-color);
+  border-right: 0;
+  border-bottom: 0;
+  box-sizing: border-box;
+}
+.table > view {
+  display: block;
+  width: 100%;
+}
+.table-max-width view.tr {
+  overflow: auto;
+  display: block;
+  width: 100%;
+}
+.table-max-width view.tr > view {
+  float: left;
+  width: 60px;
+}
+.table .title {
+  margin: 0;
+  font-size: 20px;
+  color: #333;
+  line-height: 40px;
+  text-shadow: none;
+  text-align: left;
+  text-indent: .5em;
+  border-right: 1px solid var(--table-color);
+  background-color: #aaa;
+}
+.table .title text {
+  color: #888;
+  font-size: 12px;
+}
+.table .tr {
+  display: flex;
+  line-height: 40px;
+}
+.table .th > view , .table .tr > view {
+  overflow: hidden;
+  flex: 1;
+  font-size: 15px;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+  text-align: center;
+  border: 1px solid var(--table-color);
+  border-top: 0;
+  border-left: 0;
+  transform: 1s;
+}
+.table .tr > view:active {
+  flex: 2;
+  padding-top: 30px;
+  text-overflow: initial;
+  white-space: initial;
+  border: 1px solid red;
+}
+.table .th > view {
+  font-weight: 400;
+  font-size: 18px;
+  background-color: #bbb;
+}
+.table .page {
+  text-align: right;
+  line-height: 40px;
+  color: var(--table-color);
+  border: 1px solid var(--table-color);
+  border-top: 0;
+  border-left: 0;
+}
+.table .page text {
+  float: left;
+  margin-left: 1rem;
+  font-size: 16px;
+}
+.table .page icon {
+  margin: 0 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+/* iconfont */
+@font-face {
+  font-family: 'iconfont';  /* project id 892359 */
+  src: url('//at.alicdn.com/t/font_892359_dvmwqlrf02.eot');
+  src: url('//at.alicdn.com/t/font_892359_dvmwqlrf02.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_892359_dvmwqlrf02.woff') format('woff'),
+  url('//at.alicdn.com/t/font_892359_dvmwqlrf02.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_892359_dvmwqlrf02.svg#iconfont') format('svg');
+}
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-qing:before { content: "\e61f"; }
+.icon-shezhi:before { content: "\e642"; }
+.icon-1:before { content: "\e701"; }
+.icon-yaoyiyao:before { content: "\e7f1"; }
+.icon-yin:before { content: "\e61b"; }
+.icon-saoma:before { content: "\e6b1"; }
+.icon-leiyu:before { content: "\e61d"; }
+.icon-renzheng:before { content: "\e608"; }
+.icon-huodong:before { content: "\e6fd"; }
+.icon-chenggong:before { content: "\e609"; }
+.icon-wrong:before { content: "\e615"; }
+.icon-excel:before { content: "\e6e8"; }
+.icon-jinggao:before { content: "\e600"; }
+.icon-shidu:before { content: "\e611"; }
+.icon-xiugai:before { content: "\e84d"; }
+.icon-skzuidiwendu-yunleMinTemp:before { content: "\e686"; }
+.icon-skzuigaowendu-yunleMaxTemp:before { content: "\e687"; }
+.icon-kongqizhiliang:before { content: "\e67d"; }
+.icon-zhiwen:before { content: "\e60b"; }
+.icon-gonggao:before { content: "\e628"; }
+.icon-loading:before { content: "\e6dc"; }
+.icon-toggle:before { content: "\e612"; }
+.icon-dengji-C:before { content: "\e601"; }
+.icon-dengji-B:before { content: "\e602"; }
+.icon-dengji-D:before { content: "\e603"; }
+.icon-dengji-A:before { content: "\e604"; }
+.icon-wode:before { content: "\e605"; }
+.icon-tixing:before { content: "\e606"; }
+.icon-qiandao:before { content: "\e666"; }
+.icon-shouqi:before { content: "\e60d"; }
+.icon-richu:before { content: "\e6a1"; }
+.icon-rila:before { content: "\e6a2"; }
+.icon-duoyun:before { content: "\e651"; }
+.icon-guanli:before { content: "\e7fe"; }
+.icon-shetuan:before { content: "\e60a"; }
+.icon-tubiao:before { content: "\e670"; }
+.icon-biangengjilu:before { content: "\e607"; }
+.icon-beizhihangren:before { content: "\e60c"; }
+.icon-hangzhengchufa:before { content: "\e614"; }
+.icon-jibenxinxi:before { content: "\e616"; }
+.icon-wendu:before { content: "\e621"; }
+.icon-shouye:before { content: "\e610"; }
+.icon-gengduo:before { content: "\e692"; }
+.icon-guanbi:before { content: "\e60e"; }
+.icon-erweima:before { content: "\e82e"; }
+.icon-shouqi_m:before { content: "\e60f"; }

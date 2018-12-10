@@ -1,0 +1,207 @@
+/**index.wxss**/
+
+.close {
+  position: relative;
+  padding: 10px 0 10px 10px;
+  font-size: 15px;
+  text-align: center;
+  color: #d73f3d;
+  background-color: rgba(255, 0, 0, .15)
+}
+.close::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 5px;
+  height: 20px;
+  background-color: #d73f3d;
+}
+.close text, .close navigator {
+  float: left;
+  margin: 0 5px;
+}
+.close button {
+  float: left;
+  width: 40px;
+  padding: 0;
+  font-size:15px;
+  color: #d73f3d;
+  line-height: 20px;
+  background-color: transparent;
+}
+
+/* 用户信息 */
+.user-info {
+  min-height: 150px;
+  margin-top: 75px;
+}
+.user-all {
+  height: auto;
+  padding-bottom: 10px;
+}
+.user-all-info {
+  margin-top: 5px;
+}
+.user-all-info > view {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border-top: 1px solid #eee;
+  box-sizing: border-box;
+}
+.user-all-info > view :nth-child(1) {
+  display: inline-block;
+  color: #888;
+  width: 20%;
+}
+/* .user-all image.user-image {
+  animation: 2s iconDeg;
+  animation-fill-mode: forwards;
+}
+@keyframes iconDeg {
+  to {
+    transform: translateX(-120px) rotateZ(-360deg) scale(1);
+  }
+}
+.user-all .user-nickName {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, .6);
+  transform: translateX(-40px) translateY(-50px);
+} */
+.user-info .user-image {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 150rpx;
+  height: 150rpx;
+  margin: auto;
+  margin-top: -80rpx;
+  background-color: white;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 -2.5px 5px rgba(0, 0, 0, .2);
+}
+.user-info .user-nickName {
+  display: block;
+  margin-top: 90rpx;
+  text-align: center;
+  font-weight: 500;
+  transition: 1s;
+}
+.user-info .user-row {
+  margin-top: 10px;
+  padding-top: 5px;
+  border-top: 1px solid #eee;
+  transition: .5s;
+}
+.user-info .user-row > view {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  float: left;
+  width: calc(100% / 3 - 2px);
+  height: 50px;
+  font-size: 13px;
+}
+.user-info .user-row > view:nth-of-type(2) {
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+}
+.user-info .user-row text {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+}
+.user-info .user-row .user-tag {
+  font-size: 18px;
+  color: #ccc;
+}
+
+/* 常用工具面板 */
+.commonly-tools {
+  padding: 10px 0;
+}
+.commonly-tools .tool-child {
+  float: left;
+  width: 25%;
+  height: 100%;
+  text-align: center;
+}
+.commonly-tools .tool-child text {
+  display: block;
+  margin-top: 10px;
+  color: #888;
+  font-size: 20px;
+  font-weight: 400;
+}
+.commonly-tools navigator icon {
+  padding: 10px;
+  width: 60rpx;
+  color: white;
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 60rpx;
+  background-color: #58e2f5;
+  border-radius: 50%;
+}
+.commonly-tools navigator:nth-child(2) icon {
+  background-color: #ffc63c;
+}
+.commonly-tools navigator:nth-child(3) icon {
+  background-color: #d73f3d;
+}
+.commonly-tools navigator:nth-child(4) icon {
+  background-color: #ffba81;
+}
+
+/* 部分组件 */
+.component {
+  position: relative;
+}
+.top-tag {
+  padding: 10px 20px 5px;
+  font-size: 20px;
+  color: #555;
+}
+.top-tag::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 5px;
+  height: 20px;
+  margin-top: 4px;
+  background-color: #4a6efd;
+}
+.component-ul view {
+  padding: 10px 20px;
+  color: #888;
+  font-size: 17px;
+  vertical-align: middle;
+  border-top: 1px solid #eee;
+  transition: 1s;
+}
+.component-ul view:hover {
+  background-color: #eee;
+}
+.component-ul > view:first-child {
+  border-top: none;
+}
+.component-ul view icon {
+  margin-right: 10px;
+  padding: 2px;
+  width: 30px;
+  height: 30px;
+  color: white;
+  text-align: center;
+  font-size: 1.25em;
+  background-color: #4a6efd;
+  border-radius: 5px;
+}
+.component-ul view:nth-child(2) icon { background-color: #ffba81 }
+.component-ul view:nth-child(3) icon { background-color: #58e2f5 }
+.component-ul view:nth-child(4) icon { background-color: #ffc63c }
+.component-ul view:nth-child(5) icon { background-color: #67D1D3 }
+.component-ul view:nth-child(6) icon { background-color: #FF6666 }
+.component-ul view:nth-child(7) icon { background-color: #333399 }
+.component-ul view:nth-child(8) icon { background-color: #3bc7c0 }

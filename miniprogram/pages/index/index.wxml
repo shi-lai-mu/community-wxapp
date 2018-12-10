@@ -1,0 +1,147 @@
+<!--index.wxml-->
+
+<view class='warp'>
+  <view class='bg'></view>
+
+  <!-- 用户信息面板 -->
+  <view class='{{ userAll ? "user-all" : "" }} user-info box'>
+
+    <image src='{{userImage}}' class='user-image' bindtap='userAll'></image>
+    <text class='user-nickName'>{{userName ? userName : "未登陆"}}</text>
+
+    <view class='user-row clearflx'>
+
+      <view>
+        <text>{{college}}</text>
+        <text class='user-tag'>学院</text>
+      </view>
+
+      <view>
+        <text>{{profess}}</text>
+        <text class='user-tag'>专业</text>
+      </view>
+
+      <view>
+        <text>{{classt}}</text>
+        <text class='user-tag'>班级</text>
+      </view>
+
+    </view>
+
+    <view wx:if="{{userAll}}" class="user-all-info">
+      <view>
+        <text class='user-tag'>手机</text>
+        <text>{{globals.info.phone}}</text>
+      </view>
+      <view>
+        <text class='user-tag'>QQ</text>
+        <text>{{globals.info.qq}}</text>
+      </view>
+      <view>
+        <text class='user-tag'>注册</text>
+        <text>{{globals.info.register}}</text>
+      </view>
+    </view>
+
+  </view>
+  
+  <view class='box close' wx:if='{{!userName}}'>
+    <text>提示: 因未登陆,部分功能关闭!</text>
+    <button open-type='getUserInfo' bindgetuserinfo='getAuthorize'>登陆</button>
+    <text>/</text>
+    <navigator url='../signUp/signUp'>报名</navigator>
+  </view>
+
+
+  <!-- 常用工具面板 -->
+  <view class='commonly-tools box'>
+
+      <view class='tool-child' wx:if="{{userName}}" bindtap='userAll'>
+        <icon class='iconfont icon-jibenxinxi'></icon>
+        <text>信息</text>
+      </view>
+
+    <navigator url='../RQCode/RQCode'>
+      <view class='tool-child'>
+        <icon class='iconfont icon-gonggao'></icon>
+        <text>公告</text>
+      </view>
+    </navigator>
+
+    <navigator url='../RQCode/RQCode'>
+      <view class='tool-child' wx:if="{{userName}}">
+        <icon class='iconfont icon-erweima'></icon>
+        <text>二维码</text>
+      </view>
+    </navigator>
+
+    <navigator url='../RQCode/RQCode'>
+      <view class='tool-child' bindtap='readCode'>
+        <icon class='iconfont icon-saoma'></icon>
+        <text>扫码</text>
+      </view>
+    </navigator>
+
+  </view>
+
+  <!-- 部分组件 -->
+  <view class='component box'>
+    <view class='top-tag'>功能区域</view>
+
+    <view class='component-ul'>
+
+      <navigator url='../SignIn/SignIn'>
+        <view wx:if="{{userName}}">
+          <icon class='iconfont icon-qiandao'></icon>
+          <text>签到</text>
+        </view>
+      </navigator>
+
+      <view wx:if="{{userName}}">
+        <icon class='iconfont icon-tixing'></icon>
+        <text>提醒</text>
+      </view>
+
+      <view>
+        <icon class='iconfont icon-shetuan'></icon>
+        <text>社团</text>
+      </view>
+
+      <navigator url='../signUp/signUp' wx:if='{{!userName}}'>
+        <view>
+          <icon class='iconfont icon-renzheng'></icon>
+          <text>报名</text>
+        </view>
+      </navigator>
+
+      <view wx:if="{{userName}}">
+        <icon class='iconfont icon-xiugai'></icon>
+        <text>修改</text>
+      </view>
+
+      <view wx:if="{{userName}}">
+        <icon class='iconfont icon-beizhihangren'></icon>
+        <text>查找</text>
+      </view>
+
+      <view>
+        <icon class='iconfont icon-shezhi'></icon>
+        <text>设置</text>
+      </view>
+
+      <navigator url="../Admin/Admin">
+        <view wx:if="{{userName}}">
+          <icon class='iconfont icon-hangzhengchufa'></icon>
+          <text>后台</text>
+        </view>
+      </navigator>
+
+    </view>
+  </view>
+
+  <view class='msg {{msg._type}} {{ msg._text ? "msg-show" : "" }}'>
+    <icon class='{{ msg._icon ? "iconfont icon-" + msg._icon : "" }}'></icon>
+    <text>{{msg._text}}</text>
+  </view>
+  
+</view>

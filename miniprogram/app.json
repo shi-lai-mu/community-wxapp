@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/activity/activity",
+    "pages/Admin/Admin",
+    "pages/index/index",
+    "pages/RQCode/RQCode",
+    "pages/signUp/signUp",
+    "pages/SignIn/SignIn"
+  ],
+  "window": {
+    "backgroundColor": "#fff",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#E43E40",
+    "navigationBarTitleText": "沈家本法律读书协会",
+    "navigationBarTextStyle": "#fff"
+  },
+  "usingComponents": {
+    "msg": "/component/Toast/Toast"
+  }
+}

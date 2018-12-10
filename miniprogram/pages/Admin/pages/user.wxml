@@ -1,0 +1,42 @@
+<view class='search'>
+  <icon class='iconfont icon-beizhihangren'></icon>
+  <input class='searchInput' placeholder='信息关键词...回车搜索' bindconfirm='searchKey'></input>
+</view>
+<view class='card user'>
+    <text class='tag'>社员数据</text>
+    <text>总数: {{ user.count }}</text>
+    <text>总数: 10</text>
+    <text>总数: 10</text>
+    <text>总数: 10</text>
+</view>
+
+<view class='table'>
+
+  <view class='title'>
+    信 息 表
+    <text>(不包括隐私信息)</text>
+  </view>
+
+  <view class='tr th'>
+    <view style='flex: .5'>ID</view>
+    <view>姓名</view>
+    <view>班级</view>
+    <view>Q Q</view>
+    <view>报名</view>
+  </view>
+  
+  <view class='tr' wx:for='{{user.list}}' wx:key='*this'>
+    <view style='flex: .5'>{{index * (user.page + 1)}}</view>
+    <view>{{item.name}}</view>
+    <view>{{item.classt}}</view>
+    <view>{{item.qq}}</view>
+    <view>{{item.register}}</view>
+  </view>
+
+  <view class='page'>
+    <text>{{user.page}} / {{user.count / 20}}</text>
+    <icon class='iconfont icon-shouqi'></icon>
+    <icon class='iconfont icon-shouqi_m'></icon>
+  </view>
+
+</view>

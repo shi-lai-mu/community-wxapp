@@ -1,0 +1,17 @@
+<view class='card no3'>
+  <form class='clearflx' bindsubmit="saveActivity_yaoyiyao">
+    <view>摇一摇：</view>
+    <view>摇的时间：<input name="yyy_time" value='{{yyy.time}}'></input> s</view>
+    <view>摇动灵敏度：<input name="yyy_lm" value='{{yyy.lm}}'></input></view>
+    <button size="mini" type="warn" bindtap='unloadActivity_yaoyiyao'>重置活动</button>
+    <button size="mini" type="{{!yyy.state ? 'primary' : 'warn'}}" bindtap='activity_yaoyiyao'>
+      {{!yyy.state ? '开启活动' : '关闭活动'}}
+    </button>
+    <button size="mini" class='right' form-type='submit'>保存配置</button>
+
+    <text class='ps'>ps: 开启活动并不会重置上次活动数据!</text>
+    <text class='ps'>ps: 灵敏度越高，晃动所需幅度越大!</text>
+  </form>
+</view>
+
+<text>此处皆为最高权限操作!都是不可逆的...请谨慎操作!!!</text>

@@ -1,0 +1,38 @@
+<view class='card no2 greetings'>
+  <text>Hello Admin</text>
+  <text>{{admin}}</text>
+</view>
+
+<view class='card no1 weather'>
+  <view>
+    <text class='tag'>{{weather.cityInfo.city}}</text>
+    <text>更新时间 {{weather.cityInfo.updateTime}}</text>
+  </view>
+  <text>{{weather.data.ganmao}}</text>
+
+  <icon class='iconfont icon-shidu'></icon>
+  <text>{{weather.data.shidu}}</text>
+
+  <icon class='iconfont icon-wendu'></icon>
+  <text>{{weather.data.wendu}}℃</text>
+
+  <icon class='iconfont icon-skzuigaowendu-yunleMaxTemp'></icon>
+  <text>{{weather.data.forecast[0].high}}</text>
+
+  <icon class='iconfont icon-skzuidiwendu-yunleMinTemp'></icon>
+  <text>{{weather.data.forecast[0].low}}</text>
+
+  <icon class='iconfont icon-kongqizhiliang'></icon>
+  <text>{{weather.data.forecast[0].aqi}}</text>
+
+  <icon class='iconfont icon-{{weather.data.forecast[0].icon}}'></icon>
+  <text>{{weather.data.forecast[0].type}}</text>
+
+  <icon class='iconfont icon-richu'></icon>
+  <text>日出 {{weather.data.forecast[0].sunrise}}</text>
+
+  <icon class='iconfont icon-rila'></icon>
+  <text>日落 {{weather.data.forecast[0].sunset}}</text>
+
+  <text class='notice'>ps: {{weather.data.forecast[0].notice}}</text>
+</view>

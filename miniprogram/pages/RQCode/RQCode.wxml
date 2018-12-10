@@ -1,0 +1,17 @@
+<!--pages/RQCode/RQCode.wxml-->
+<swiper indicator-dots="true" bindchange="movePage">
+
+  <swiper-item>
+    <view>
+      <text class='tag'>个人信息</text>
+      <canvas style='width: 250px; height: 250px' canvas-id="qrcode" />
+      <canvas style='width: 250px; height: 50px' canvas-id="barcode" />
+      <text>部分界面快速写入可用!</text>
+    </view>
+  </swiper-item>
+
+</swiper>
+<view class='msg {{msg._type}} {{ msg._text ? "msg-show" : "" }}'>
+  <icon class='{{ msg._icon ? "iconfont icon-" + msg._icon : "" }}'></icon>
+  <text>{{msg._text}}</text>
+</view>

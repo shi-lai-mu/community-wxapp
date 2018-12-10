@@ -1,0 +1,63 @@
+
+<view class='iconfont icon-toggle'>
+  <view class='toggle-left'>
+    <navigator url='../activity/activity' redirect>摇一摇</navigator>
+    <navigator url='../Admin/Admin' redirect>管理登入</navigator>
+    <!-- <navigator url='../Admin/Admin' redirect>关于我们</navigator> -->
+  </view>
+</view>
+
+<view class="activity-red-bg {{bar ? 'min-bar' : '' }}">
+  <view>
+    <image wx:if="{{user.avatarUrl}}" src="{{user.avatarUrl}}" class='user-icon'></image>
+    <image wx:if="{{!user.avatarUrl}}" src="/images/user.png" class='user-icon'></image>
+    <text class='user-name' wx:if="{{user.avatarUrl}}">{{user.nickName}}</text>
+    <button wx:else open-type='getUserInfo' class='getUserInfo' bindgetuserinfo='getAuthorize'>点击授权</button>
+
+    <view class='select-page' bindtap='selectPage'>
+      <text class='select-page-s {{page == 0 ? "onR" : page == -1 ? "on" : ""}}' data-i="0">来摇一摇</text>
+      <text class='select-page-s {{page == 1 ? "onL" : "" }}' data-i="1">参与活动</text>
+    </view>
+  </view>
+</view>
+
+<swiper class='main-page' bindchange="swiperChang" current="{{page == -1 ? 0 : page}}">
+
+  <!-- 第一页 -->
+  <swiper-item scroll-y>
+
+    <view class='clearflx'>
+
+      <text wx:if="{{yyy.number}}" class='outTime'>{{yyy.number}}</text>
+
+      <icon class='iconfont icon-yaoyiyao yyy {{(yyy.state || yyy.look) ? "icon-up" : "" }}' bindtap='startYYY'></icon>
+
+      <text wx:if="{{!yyy.state}}" class="ps">ps: 点击上方图标后开始摇!</text>
+
+      <view wx:if="{{yyy.state}}" class='yyy-info-left'>
+        <view class='{{yyy.end ? "out-count" : "" }}'>摇了:
+          <text>{{yyy.count}}</text> 次 <text>[第{{yyy.pm}}名]</text>
+        </view>
+        <view class='{{yyy.end ? "end-time" : "" }}'>剩余:
+          <text>{{yyy.time}}s</text>
+        </view>
+      </view>
+
+    </view>
+
+    <scroll-view scroll-y wx:if="{{yyy.state}}" class='yyy-ranking'>
+
+      <view class='rank-view' wx:for="{{yyy.list}}" wx:key="key">
+        <text class='rank-tag'>{{index + 1}}</text>
+        <image src='{{item.user.avatarUrl}}'></image>
+        <text class='rank-name'>{{item.user.nickName}}</text>
+        <text class='rank-count'>{{item.count}} 次</text>
+      </view>
+      
+    </scroll-view>
+
+  </swiper-item>
+
+  <swiper-item>参与活动[开发中,,,]</swiper-item>
+</swiper>
+<msg data="{{toast}}"></msg>

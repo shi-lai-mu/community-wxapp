@@ -1,0 +1,15 @@
+{
+	"miniprogramRoot": "miniprogram/",
+	"cloudfunctionRoot": "cloudfunctions/",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true
+	},
+	"appid": "wx5cc5a6783535b220",
+	"projectname": "%E6%B9%96%E8%81%8C%E7%89%A9%E4%BF%A1",
+	"libVersion": "1.0.0",
+	"condition": {}
+}

@@ -1,0 +1,53 @@
+
+<form>
+
+  <!-- 姓名 -->
+  <view class='box {{name.ok ? "ok" : ""}}'>
+    <text class='tag'>姓名 : {{name.ok}}</text>
+    <text class='error' wx:if="{{name.error}}">{{name.error}}</text>
+    <input bindblur='inputBlur' bindinput='input' id='name'/>
+  </view>
+
+  <!-- 班级 -->
+  <view class='box {{classt.ok ? "ok" : ""}}'>
+    <text class='tag'>班级 : {{classt.ok}}</text>
+    <text class='error' wx:if="{{classt.error}}">{{classt.error}}</text>
+    <input bindblur='inputBlur' type='number' bindinput='input' id='classt' />
+  </view>
+
+  <!-- 手机 -->
+  <view class='box {{phone.ok ? "ok" : ""}}'>
+    <text class='tag'>手机 : {{phone.ok}}</text>
+    <text class='error' wx:if="{{phone.error}}">{{phone.error}}</text>
+    <input bindblur='inputBlur' type='number' bindinput='input' id='phone' />
+  </view>
+
+  <!-- QQ -->
+  <view class='box {{qq.ok ? "ok" : ""}}'>
+    <text class='tag'>Q Q : {{qq.ok}}</text>
+    <text class='error' wx:if="{{qq.error}}">{{qq.error}}</text>
+    <input bindblur='inputBlur' type='number' bindinput='input' id='qq' />
+  </view>
+
+  <!-- 分院  -->
+  <radio-group class='box {{sorting.ok ? "ok" : ""}}' bindchange='radio1Chang'>
+    <text class='tag'>分院 : {{sorting.ok}}</text>
+    <text class='error' wx:if="{{sorting.error}}" wx:key="*this">{{sorting.error}}</text>
+    <label wx:for="{{radio_v1}}">
+      <radio value='{{item.ID}}' />{{item.name}}
+    </label>
+  </radio-group>
+
+  <!-- 专业 -->
+  <radio-group class='box {{profess.ok ? "ok" : ""}}' bindchange='radio2Chang' wx:if="{{radio_v2.length}}">
+    <text class='tag'>专业 : {{profess.ok}}</text>
+    <text class='error' wx:if="{{profess.error}}">{{profess.error}}</text>
+    <label wx:for="{{radio_v2}}" wx:key="*this">
+      <radio value='{{item}}' />{{item}}
+    </label>
+  </radio-group>
+
+  <button wx:if="{{!userInfo}}" open-type='getUserInfo' class='submit error' bindgetuserinfo='getAuthorize'>请先点我 账号授权</button>
+  <button class='submit' bindtap='submit'>提交</button>
+  
+</form>
