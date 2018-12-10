@@ -353,6 +353,21 @@ Page({
                                     count
                                   }
                                 });
+
+                                count && yyyBase.where({
+                                  count
+                                }).count({
+                                  success: res => {
+                                    _this.save('pm', res.total + 1);
+                                    self.setData({
+                                      toast: {
+                                        text: "您当前排名：" + (res.total + 1) + ' , 排名仅供参考具体以列表为准!',
+                                        icon: "success",
+                                        hideTime: 5000
+                                      }
+                                    });
+                                  }
+                                });
                                 // 十分钟后停止更新
                                 setTimeout(() => {
                                   clearInterval(interval2);
