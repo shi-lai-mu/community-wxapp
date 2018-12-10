@@ -5,7 +5,8 @@
     "pages/index/index",
     "pages/RQCode/RQCode",
     "pages/signUp/signUp",
-    "pages/SignIn/SignIn"
+    "pages/SignIn/SignIn",
+    "pages/info/info"
   ],
   "window": {
     "backgroundColor": "#fff",

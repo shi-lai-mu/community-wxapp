@@ -104,18 +104,21 @@ Page({
 
     // 活动 对象
     this.yyy = new yaoyiyao();
+    // 参与活动 对象
+    this.canyu = new canyu();
 
     /***
      * 参与活动 构建函数
      */
-    function parent() {
+    function canyu() {
       let __SLEF = this;
       /**
        * 参与活动原型链
        */
       __SLEF.__proto__ = {
 
-        constructor: parent,
+        constructor: canyu,
+
 
 
       }

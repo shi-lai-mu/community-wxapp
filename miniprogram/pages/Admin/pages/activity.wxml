@@ -14,4 +14,16 @@
   </form>
 </view>
 
+<view class='card no3'>
+  <form class='clearflx' bindsubmit="saveActivity_yaoyiyao">
+    <view>参与活动：</view>
+    <button size="mini" type="warn" bindtap='unloadActivity_yaoyiyao'>重置活动</button>
+    <button size="mini" type="{{!yyy.state ? 'primary' : 'warn'}}" bindtap='activity_yaoyiyao'>
+      {{!yyy.state ? '开启活动' : '关闭活动'}}
+    </button>
+
+    <text class='ps'>ps: 开启活动并不会重置上次活动数据!</text>
+  </form>
+</view>
+
 <text>此处皆为最高权限操作!都是不可逆的...请谨慎操作!!!</text>
