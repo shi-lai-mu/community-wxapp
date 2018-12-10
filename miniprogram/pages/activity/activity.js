@@ -126,12 +126,23 @@ Page({
 
         data: {},
 
-        unload: function() {
-          this.data.look && clearInterval(this.data.look);
+        // 保存数据的方法
+        save: function(json, val) {
+          let cy = self.data.cy || {};
+          !val ? Object.keys(json).forEach(val => {
+            this[val] = cy[val] = json[val];
+          }) : this[json] = cy[json] = val;
+          self.setData({
+            cy: cy
+          });
+          return cy;
+        },
+
+        unData: function() {
+          interval && clearInterval(interval);
           this.data = {
             list: [],
             click: "",
-            look: false,
             pm: 0
           };
         },
@@ -140,7 +151,6 @@ Page({
           let _this = this;
           if (!app.globalData.user) return _this.error = '请先点击授权';
 
-
           // 如果是已参赛者 则 显示列表 否则 参赛
           cyBase.where({
             _openid: app.globalData.user.openId
@@ -148,27 +158,76 @@ Page({
             success: res => {
               _this.unData();
               if (res.data.length) {
-                _this.error = '你已经参与过本次活动了!请等待管理员重置...';
+                _this.save('click', res.data[0].time);
+
+                // 参赛列表
+                interval = setInterval(() => {
+                  cyBase.get({
+                    success: res => {
+                      _this.save('list', res.data);
+
+                      if (!res.data.length && self.data.yyy.list.length) {
+                        self.setData({
+                          toast: {
+                            text: "管理员已将活动重置,数据已刷新!",
+                            icon: "loading",
+                            hideTime: 4000
+                          }
+                        });
+                        this.unData();
+                      }
+                      _this.save('list', res.data);
+                    }
+                  })
+                }, 1000);
+
+                // 排名
+                res.data[0].time && yyyBase.where({
+                  count: _.gt(res.data[0].count)
+                }).count({
+                  success: res => {
+                    _this.save('pm', res.total + 1);
+                    self.setData({
+                      toast: {
+                        text: "您当前排名：" + (res.total + 1) + ' , 排名仅供参考具体以列表为准!',
+                        icon: "success",
+                        hideTime: 5000
+                      }
+                    });
+                  }
+                });
+
+                return;
               }
+
+              !_this.error && wx.cloud.database().collection('activity').where({
+                name: 'admin'
+              }).get({
+                success: data => {
+                  if (data = data.data[0]) {
+                    if (data.cy_state) {
+                      // 重置数据
+                      _this.unData();
+
+                      // 记录ID 第一次
+                      cyBase.add({
+                        data: {
+                          time: new Date().Format("hh:mm:ss"),
+                          user: app.globalData.user
+                        },
+                        success: res => {
+                          _this._ID = res._id;
+                          console.log(res)
+                        }
+                      });
+
+                    } else _this.error = '活动暂未开启!';
+                  }
+                }
+              });
             }
           });
 
-          wx.cloud.database().collection('activity').where({
-            name: 'admin'
-          }).get({
-            success: data => {
-              if (data = data.data[0]) {
-                if (data.cy_state) {
-                  // 重置数据
-                  _this.unData();
-
-
-                  
-
-                } else this.error = '活动暂未开启!';
-              }
-            }
-          });
         }
 
       }
@@ -507,7 +566,7 @@ Page({
   },
 
   // 参与活动按钮
-  startCY: function () {
+  startCY: function() {
     this.canyu.play();
   },
 
@@ -528,4 +587,22 @@ Page({
     }
   }
 
-})
+});
+
+Date.prototype.Format = function(fmt) { //author: meizz   
+  var o = {
+    "M+": this.getMonth() + 1, //月份   
+    "d+": this.getDate(), //日   
+    "h+": this.getHours(), //小时   
+    "m+": this.getMinutes(), //分   
+    "s+": this.getSeconds(), //秒   
+    "q+": Math.floor((this.getMonth() + 3) / 3),
+    "S": this.getMilliseconds() //毫秒   
+  };
+  if (/(y+)/.test(fmt))
+    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  for (var k in o)
+    if (new RegExp("(" + k + ")").test(fmt))
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+  return fmt;
+}

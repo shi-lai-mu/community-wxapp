@@ -65,32 +65,29 @@
 
      <view class='clearflx'>
 
-      <text wx:if="{{cy.number}}" class='outTime'>{{cy.number}}</text>
+      <icon class='iconfont icon-jushou yyy {{(cy.click || cy.look) ? "icon-up" : "" }}' bindtap='startCY'></icon>
 
-      <icon class='iconfont icon-jushou yyy {{(cy.state || cy.look) ? "icon-up" : "" }}' bindtap='startCY'></icon>
-
-      <text wx:if="{{!cy.state}}" class="ps">ps: 点击上方图标后参与活动![请不要连续超过三次点击,否则会有冷却!]</text>
+      <text wx:if="{{!cy.click}}" class="ps">ps: 点击上方图标后参与活动![请不要连续超过三次点击,否则会有冷却!]</text>
 
       <view wx:if="{{cy.click}}" class='yyy-info-left'>
-        <view class='{{cy.end ? "out-count" : "" }}'>参与成功:
+        <view class='out-count'>
           <text>{{cy.click}}</text><text>[第{{cy.pm}}名]</text>
         </view>
       </view>
 
     </view>
 
-    <scroll-view scroll-y wx:if="{{cy.state}}" class='yyy-ranking'>
+    <scroll-view scroll-y wx:if="{{cy.click}}" class='yyy-ranking'>
 
-        <text class='rank-tag'>1</text>
-        <image src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLM5U0R2nY7e01e6us8UFhJ4ibanor9uLbcgibs4lTzJOv4Z7FWOgLDxxNtic7ZRcFsPwuV0icHyScqBw/132'></image>
-        <text class='rank-name'>xxx</text>
-        <text class='rank-count'>12 次</text>
-        
-      <view class='rank-view' wx:for="{{yyy.list}}" wx:key="key">
+      <view class='rank-view' wx:for="{{cy.list}}" wx:key="key">
         <text class='rank-tag'>{{index + 1}}</text>
-        <image src='{{item.user.avatarUrl}}'></image>
+        <view wx:if="{{!index }}" class='boss'>
+          <image src='/images/boss.png'></image>
+          <image src='{{item.user.avatarUrl}}'></image>
+        </view>
+        <image src='{{item.user.avatarUrl}}' wx:else></image>
         <text class='rank-name'>{{item.user.nickName}}</text>
-        <text class='rank-count'>{{item.count}} 次</text>
+        <text class='rank-count'>{{item.time}}</text>
       </view>
       
     </scroll-view>

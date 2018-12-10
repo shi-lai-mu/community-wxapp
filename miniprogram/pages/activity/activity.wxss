@@ -64,8 +64,11 @@
 .activity-bl-bg .onL {
   background-image: linear-gradient(90deg,#FE41DB, #dd38bf);
 }
+.icon-jushou ~ .yyy-info-left {
+  font-size: 1em;
+}
 .not {
-  background-image: linear-gradient(90deg,#e6e6e6, #dadada);
+  background-image: linear-gradient(90deg,#cc0e0e, #dadada);
 }
 
 .onL {
@@ -217,7 +220,7 @@
 .yyy-ranking {
   height: 85vh;
 }
-.yyy-ranking view {
+.yyy-ranking .rank-view {
   width: 90vw;
   margin: 20rpx auto;
   box-shadow: 0 3rpx 6rpx rgba(0, 0, 0, .3);
@@ -228,13 +231,26 @@
   justify-content: space-around;
   align-items: center;
 }
-.rank-view image {
+.rank-view > image, .boss image:nth-child(2) {
   width: 50px;
   height: 50px;
   margin: 10rpx;
   border-radius: 50%;
   box-shadow: 1px 3px 5rpx rgba(0, 0, 0, .2);
   vertical-align: middle;
+}
+.boss {
+  position: relative;
+  display: inline-block;
+}
+.boss image:nth-child(1) {
+  position: absolute;
+  top: 0;
+  width: 35px;
+  height: 23px;
+  border-radius: 0;
+  box-shadow: none;
+  transform: rotate(20deg) translateY(-15px) translateX(20px);
 }
 .rank-view:nth-child(1) .rank-tag {
   font-size: 1.3em;
@@ -261,4 +277,10 @@
 }
 .rank-view .rank-count {
   color: #b6b6b6;
+}
+.clearfix:active {
+  content: '';
+  display: block;
+  height: 100%;
+  clear: both;
 }
