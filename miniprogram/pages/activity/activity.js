@@ -145,6 +145,7 @@ Page({
             click: "",
             pm: 0
           };
+          this.save(this.data);
         },
 
         play: function() {
@@ -157,16 +158,14 @@ Page({
           }).get({
             success: res => {
               _this.unData();
-              if (res.data.length) {
-                _this.save('click', res.data[0].time);
 
-                // 参赛列表
+              function updata() {// 参赛列表
+                clearInterval(interval);
                 interval = setInterval(() => {
-                  cyBase.get({
+                  cyBase.orderBy('date', 'desc').get({
                     success: res => {
-                      _this.save('list', res.data);
 
-                      if (!res.data.length && self.data.yyy.list.length) {
+                      if (!res.data.length && self.data.cy.list.length) {
                         self.setData({
                           toast: {
                             text: "管理员已将活动重置,数据已刷新!",
@@ -174,7 +173,7 @@ Page({
                             hideTime: 4000
                           }
                         });
-                        this.unData();
+                        _this.unData();
                       }
                       _this.save('list', res.data);
                     }
@@ -182,22 +181,27 @@ Page({
                 }, 1000);
 
                 // 排名
-                res.data[0].time && yyyBase.where({
-                  count: _.gt(res.data[0].count)
+                cyBase.orderBy('date','desc').where({
+                  date: _.gt(self.data.cy.date)
                 }).count({
                   success: res => {
                     _this.save('pm', res.total + 1);
                     self.setData({
                       toast: {
-                        text: "您当前排名：" + (res.total + 1) + ' , 排名仅供参考具体以列表为准!',
+                        text: "您当前排名：" + (res.total + 1) + '[模糊计算], 排名仅供参考具体以列表为准!',
                         icon: "success",
                         hideTime: 5000
                       }
                     });
                   }
                 });
-
-                return;
+              }
+              if (res.data.length) {
+                _this.save({
+                  click: res.data[0].time ,
+                  date: res.data[0].date
+                });
+                return updata();
               }
 
               !_this.error && wx.cloud.database().collection('activity').where({
@@ -210,16 +214,40 @@ Page({
                       _this.unData();
 
                       // 记录ID 第一次
+                      let time = new Date().Format("hh:mm:ss"),
+                        date = Date.now();
                       cyBase.add({
                         data: {
-                          time: new Date().Format("hh:mm:ss"),
+                          time,
+                          date,
                           user: app.globalData.user
                         },
                         success: res => {
                           _this._ID = res._id;
-                          console.log(res)
+                          _this.save({
+                            click: time,
+                            date: date
+                          });
                         }
                       });
+
+                      // 排名
+                      cyBase.orderBy('date', 'desc').where({
+                        date: _.gt(self.data.cy.date)
+                      }).count({
+                        success: res => {
+                          _this.save('pm', res.total + 1);
+                          self.setData({
+                            toast: {
+                              text: "您当前排名：" + (res.total + 1) + '[模糊计算], 排名仅供参考具体以列表为准!',
+                              icon: "success",
+                              hideTime: 5000
+                            }
+                          });
+                        }
+                      });
+                      updata();
+
 
                     } else _this.error = '活动暂未开启!';
                   }
@@ -336,7 +364,7 @@ Page({
                     _this.save('pm', res.total + 1);
                     self.setData({
                       toast: {
-                        text: "您当前排名：" + (res.total + 1) + ' , 排名仅供参考具体以列表为准!',
+                        text: "您当前排名：" + (res.total + 1) + '[模糊计算], 排名仅供参考具体以列表为准!',
                         icon: "success",
                         hideTime: 5000
                       }
@@ -485,7 +513,7 @@ Page({
                                     _this.save('pm', res.total + 1);
                                     self.setData({
                                       toast: {
-                                        text: "您当前排名：" + (res.total + 1) + ' , 排名仅供参考具体以列表为准!',
+                                        text: "您当前排名：" + (res.total + 1) + '[模糊计算], 排名仅供参考具体以列表为准!',
                                         icon: "success",
                                         hideTime: 5000
                                       }

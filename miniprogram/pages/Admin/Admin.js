@@ -180,8 +180,8 @@ Page({
         }
       });
     }
-
-    if ('sjbfldsxh' === this.data.pass && 'admin' === this.data.user) {
+//'sjbfldsxh'  admin
+    if ('*' === this.data.pass && '*' === this.data.user) {
       console.log(app.globalData.user)
       this.setData({
         admin: app.globalData.user.nickName
@@ -297,6 +297,70 @@ Page({
       }
     });
   },
+  /**
+   * 参与
+   */
+  unloadActivity_cy: function() {
+    wx.cloud.callFunction({
+      name: 'deleteDataBase',
+      data: {
+        basedata: 'canyu'
+      },
+      success: res => {
+        this.setData({
+          toast: {
+            text: '活动数据重置成功!',
+            icon: 'success',
+            hideTime: 3000
+          }
+        });
+      }
+    });
+  },
+  activity_cy: function () {
+    let slef = this;
+    wx.cloud.database().collection('activity').where({
+      name: 'admin'
+    }).get({
+      success: data => {
+        if (data = data.data[0]) {
+          console.log(data, slef.setData)
+          slef.setData({
+            cy: {
+              state: data.cy_state
+            }
+          });
+          console.log(slef.data)
+          off();
+        }
+      }
+    });
+
+    function off() {
+      console.log(slef.data.cy.state)
+      wx.cloud.callFunction({
+        name: 'setSQL',
+        data: {
+          basedata: 'activity',
+          id: 'W_znnJSXoyWmnPDX',
+          value: {
+            cy_state: !slef.data.cy.state
+          }
+        },
+        success: () => {
+          slef.setData({
+            cy: {
+              state: !slef.data.cy.state
+            }
+          });
+        }
+      });
+      (this.data.cy.state !== undefined) && off();
+    }
+  },
+  /**
+   * 摇一摇
+   */
   saveActivity_yaoyiyao: function(e) {
     console.log(e)
     wx.cloud.callFunction({
@@ -337,7 +401,7 @@ Page({
       }
     });
   },
-  activity_yaoyiyao: function () {
+  activity_yaoyiyao: function() {
     wx.cloud.callFunction({
       name: 'setSQL',
       data: {
@@ -349,6 +413,6 @@ Page({
       },
       success: this.activity
     });
-    
+
   }
 })

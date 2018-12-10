@@ -7,7 +7,7 @@ const db = cloud.database(),
 exports.main = async (event, context) => {
   let { basedata } = event;
   let ss = await db.collection(basedata).where({
-    count: _.gte(0)
+    _id: _.neq("")
   }).remove();
   return ss;
 }

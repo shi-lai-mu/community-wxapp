@@ -19,8 +19,8 @@
 
 <view class='card no3'>
   <view>参与活动：</view>
-  <button size="mini" type="warn" bindtap='unloadActivity_yaoyiyao'>重置活动</button>
-  <button size="mini" type="{{!cy.state ? 'primary' : 'warn'}}" bindtap='activity_yaoyiyao'>
+  <button size="mini" type="warn" bindtap='unloadActivity_cy'>重置活动</button>
+  <button size="mini" type="{{!cy.state ? 'primary' : 'warn'}}" bindtap='activity_cy'>
     {{!cy.state ? '开启活动' : '关闭活动'}}
   </button>
 
