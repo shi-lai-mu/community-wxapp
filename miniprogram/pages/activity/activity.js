@@ -162,7 +162,7 @@ Page({
               function updata() {// 参赛列表
                 clearInterval(interval);
                 interval = setInterval(() => {
-                  cyBase.orderBy('date', 'desc').get({
+                  cyBase.orderBy('date', 'asc').get({
                     success: res => {
 
                       if (!res.data.length && self.data.cy.list.length) {
@@ -181,8 +181,8 @@ Page({
                 }, 1000);
 
                 // 排名
-                cyBase.orderBy('date','desc').where({
-                  date: _.gt(self.data.cy.date)
+                cyBase.where({
+                  date: _.lt(self.data.cy.date)
                 }).count({
                   success: res => {
                     _this.save('pm', res.total + 1);
@@ -232,8 +232,8 @@ Page({
                       });
 
                       // 排名
-                      cyBase.orderBy('date', 'desc').where({
-                        date: _.gt(self.data.cy.date)
+                      cyBase.where({
+                        date: _.lt(self.data.cy.date)
                       }).count({
                         success: res => {
                           _this.save('pm', res.total + 1);
@@ -247,7 +247,6 @@ Page({
                         }
                       });
                       updata();
-
 
                     } else _this.error = '活动暂未开启!';
                   }

@@ -180,8 +180,8 @@ Page({
         }
       });
     }
-//'sjbfldsxh'  admin
-    if ('*' === this.data.pass && '*' === this.data.user) {
+    
+    if ('sjbfldsxh' === this.data.pass && 'admin' === this.data.user) {
       console.log(app.globalData.user)
       this.setData({
         admin: app.globalData.user.nickName
