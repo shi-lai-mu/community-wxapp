@@ -26,7 +26,7 @@
   color: rgba(255, 255, 255, .8);
 }
 .icon-jushou.yyy, .activity-bl-bg {
-  background-color: #975100;
+  background-color: #FE41DB;
 }
 .getUserInfo {
   background-color: #E43E40;
@@ -62,7 +62,7 @@
   box-shadow: 3px 2px 5px rgba(0, 0, 0, .3);
 }
 .activity-bl-bg .onL {
-  background-image: linear-gradient(90deg,#975100, #753f00);
+  background-image: linear-gradient(90deg,#FE41DB, #dd38bf);
 }
 .not {
   background-image: linear-gradient(90deg,#e6e6e6, #dadada);

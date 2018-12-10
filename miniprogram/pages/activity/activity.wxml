@@ -1,7 +1,8 @@
 
 <view class='iconfont icon-toggle'>
   <view class='toggle-left'>
-    <navigator url='../activity/activity' redirect>摇一摇</navigator>
+    <navigator url='../activity/activity?page=0' redirect>摇一摇</navigator>
+    <navigator url='../activity/activity?page=1' redirect>参与活动</navigator>
     <navigator url='../Admin/Admin' redirect>管理登入</navigator>
     <!-- <navigator url='../Admin/Admin' redirect>关于我们</navigator> -->
   </view>

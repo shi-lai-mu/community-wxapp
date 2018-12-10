@@ -27,6 +27,17 @@ Page({
     }
   },
 
+  onLoad: function(e) {
+    console.log(e)
+    e.page && this.selectPage({
+      target: {
+        dataset: {
+          i: e.page
+        }
+      }
+    });
+  },
+
   onReady: function() {
     this.getAuthorize();
     wx.setNavigationBarTitle({
@@ -79,17 +90,42 @@ Page({
       }
     }
 
+    if (this.data.page == 1) {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: '#FE41DB',
+      });
+    } else {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: '#E43E40',
+      });
+    }
 
     // 活动 对象
     this.yyy = new yaoyiyao();
+
+    /***
+     * 参与活动 构建函数
+     */
+    function parent() {
+      let __SLEF = this;
+      /**
+       * 参与活动原型链
+       */
+      __SLEF.__proto__ = {
+
+        constructor: parent,
+
+
+      }
+    }
 
     /***
      * 摇一摇构建函数
      */
     function yaoyiyao() {
       let __SLEF = this;
-      // 授权检测
-      // if (!self.data.yyy.end) return;
 
       /**
        * 摇一摇原型链
@@ -377,21 +413,9 @@ Page({
   selectPage: function(e) {
     if (this.data.bar) return;
     let val = e.target.dataset.i;
-    if(!val) return;
-    this.setData({
+    val && this.setData({
       page: val
     });
-    if (val == 1) {
-      wx.setNavigationBarColor({
-        frontColor: '#ffffff',
-        backgroundColor: '#975100',
-      });
-    } else {
-      wx.setNavigationBarColor({
-        frontColor: '#ffffff',
-        backgroundColor: '#E43E40',
-      });
-    }
   },
 
   // 摇一摇开始按钮
@@ -403,6 +427,17 @@ Page({
     this.setData({
       page: e.detail.current
     });
+    if (this.data.page == 1) {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: '#FE41DB',
+      });
+    } else {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: '#E43E40',
+      });
+    }
   }
 
 })
