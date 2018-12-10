@@ -5,6 +5,7 @@ let interval = null,
 
 let base = wx.cloud.database(),
   yyyBase = base.collection('yiaoyiyiao'),
+  cyBase = base.collection('canyu'),
   _ = base.command;
 
 
@@ -119,9 +120,73 @@ Page({
 
         constructor: canyu,
 
+        init: function() {
+          this.__proto__ = __SLEF;
+        },
 
+        data: {},
+
+        unload: function() {
+          this.data.look && clearInterval(this.data.look);
+          this.data = {
+            list: [],
+            click: "",
+            look: false,
+            pm: 0
+          };
+        },
+
+        play: function() {
+          let _this = this;
+          if (!app.globalData.user) return _this.error = '请先点击授权';
+
+
+          // 如果是已参赛者 则 显示列表 否则 参赛
+          cyBase.where({
+            _openid: app.globalData.user.openId
+          }).get({
+            success: res => {
+              _this.unData();
+              if (res.data.length) {
+                _this.error = '你已经参与过本次活动了!请等待管理员重置...';
+              }
+            }
+          });
+
+          wx.cloud.database().collection('activity').where({
+            name: 'admin'
+          }).get({
+            success: data => {
+              if (data = data.data[0]) {
+                if (data.cy_state) {
+                  // 重置数据
+                  _this.unData();
+
+
+                  
+
+                } else this.error = '活动暂未开启!';
+              }
+            }
+          });
+        }
 
       }
+
+      // 监听错误
+      Object.defineProperty(__SLEF, 'error', {
+        set: function(text) {
+          text && self.setData({
+            toast: {
+              text,
+              icon: 'error',
+              hideTime: 4000
+            }
+          });
+        }
+      });
+      return new this.__proto__.init;
+
     }
 
     /***
@@ -185,7 +250,7 @@ Page({
           if (!app.globalData.user) return _this.error = '请先点击授权';
 
           if (self.data.yyy.state && self.data.yyy.count) return _this.error = '正在进行活动!请稍后再试...';
-          
+
           // 如果是已参赛者 则 显示列表 否则 参赛
           yyyBase.where({
             _openid: app.globalData.user.openId
@@ -238,7 +303,7 @@ Page({
                         this.unData();
                       }
                       _this.save('list', res.data);
-                      
+
                     }
                   });
                 };
@@ -409,7 +474,7 @@ Page({
             }
           });
         }
-      })
+      });
 
       return new this.__proto__.init;
     }
@@ -439,6 +504,11 @@ Page({
   // 摇一摇开始按钮
   startYYY: function() {
     this.yyy.play();
+  },
+
+  // 参与活动按钮
+  startCY: function () {
+    this.canyu.play();
   },
 
   swiperChang: function(e) {
