@@ -25,6 +25,9 @@
   text-align: center;
   color: rgba(255, 255, 255, .8);
 }
+.icon-jushou.yyy, .activity-bl-bg {
+  background-color: #975100;
+}
 .getUserInfo {
   background-color: #E43E40;
 }
@@ -57,6 +60,9 @@
   border-radius: 100rpx;
   background-image: linear-gradient(90deg,#E43E40, #dd1417);
   box-shadow: 3px 2px 5px rgba(0, 0, 0, .3);
+}
+.activity-bl-bg .onL {
+  background-image: linear-gradient(90deg,#975100, #753f00);
 }
 .not {
   background-image: linear-gradient(90deg,#e6e6e6, #dadada);

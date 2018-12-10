@@ -377,9 +377,21 @@ Page({
   selectPage: function(e) {
     if (this.data.bar) return;
     let val = e.target.dataset.i;
-    val && this.setData({
+    if(!val) return;
+    this.setData({
       page: val
     });
+    if (val == 1) {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: '#975100',
+      });
+    } else {
+      wx.setNavigationBarColor({
+        frontColor: '#ffffff',
+        backgroundColor: '#E43E40',
+      });
+    }
   },
 
   // 摇一摇开始按钮

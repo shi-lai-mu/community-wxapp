@@ -7,7 +7,7 @@
   </view>
 </view>
 
-<view class="activity-red-bg {{bar ? 'min-bar' : '' }}">
+<view class="activity-red-bg {{page > 0 ? 'activity-bl-bg' : '' }} {{bar ? 'min-bar' : '' }}">
   <view>
     <image wx:if="{{user.avatarUrl}}" src="{{user.avatarUrl}}" class='user-icon'></image>
     <image wx:if="{{!user.avatarUrl}}" src="/images/user.png" class='user-icon'></image>
@@ -58,6 +58,45 @@
 
   </swiper-item>
 
-  <swiper-item>参与活动[开发中,,,]</swiper-item>
+  <!-- 第二页 -->
+  <swiper-item>
+
+     <view class='clearflx'>
+
+      <text wx:if="{{yyy.number}}" class='outTime'>{{yyy.number}}</text>
+
+      <icon class='iconfont icon-jushou yyy {{(yyy.state || yyy.look) ? "icon-up" : "" }}' bindtap='startYYY'></icon>
+
+      <text wx:if="{{!yyy.state}}" class="ps">ps: 点击上方图标后参与活动![请不要连续超过三次点击,否则会有冷却!]</text>
+
+      <view wx:if="{{yyy.state}}" class='yyy-info-left'>
+        <view class='{{yyy.end ? "out-count" : "" }}'>摇了:
+          <text>{{yyy.count}}</text> 次 <text>[第{{yyy.pm}}名]</text>
+        </view>
+        <view class='{{yyy.end ? "end-time" : "" }}'>剩余:
+          <text>{{yyy.time}}s</text>
+        </view>
+      </view>
+
+    </view>
+
+    <scroll-view scroll-y wx:if="{{yyy.state}}" class='yyy-ranking'>
+
+        <text class='rank-tag'>1</text>
+        <image src='https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTLM5U0R2nY7e01e6us8UFhJ4ibanor9uLbcgibs4lTzJOv4Z7FWOgLDxxNtic7ZRcFsPwuV0icHyScqBw/132'></image>
+        <text class='rank-name'>xxx</text>
+        <text class='rank-count'>12 次</text>
+        
+      <view class='rank-view' wx:for="{{yyy.list}}" wx:key="key">
+        <text class='rank-tag'>{{index + 1}}</text>
+        <image src='{{item.user.avatarUrl}}'></image>
+        <text class='rank-name'>{{item.user.nickName}}</text>
+        <text class='rank-count'>{{item.count}} 次</text>
+      </view>
+      
+    </scroll-view>
+    
+  </swiper-item>
+
 </swiper>
 <msg data="{{toast}}"></msg>
