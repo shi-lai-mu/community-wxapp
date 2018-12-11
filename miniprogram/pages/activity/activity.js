@@ -1,7 +1,8 @@
 const app = getApp();
 let interval = null,
   interval1 = null,
-  interval2 = null;
+  interval2 = null,
+  colling = 0;
 
 let base = wx.cloud.database(),
   yyyBase = base.collection('yiaoyiyiao'),
@@ -13,7 +14,7 @@ Page({
 
   data: {
     bar: false,
-    page: 1,
+    page: 0,
     yyy: {
       state: false, // 开始状态
       end: true, // 结束状态
@@ -152,6 +153,9 @@ Page({
           let _this = this;
           if (!app.globalData.user) return _this.error = '请先点击授权';
 
+          if (colling > Date.now()) return;
+          colling = Date.now() + 1000;
+
           // 如果是已参赛者 则 显示列表 否则 参赛
           cyBase.where({
             _openid: app.globalData.user.openId
@@ -216,6 +220,10 @@ Page({
                       // 记录ID 第一次
                       let time = new Date().Format("hh:mm:ss"),
                         date = Date.now();
+                      _this.save({
+                        click: time,
+                        date: date
+                      });
                       cyBase.add({
                         data: {
                           time,
@@ -224,10 +232,6 @@ Page({
                         },
                         success: res => {
                           _this._ID = res._id;
-                          _this.save({
-                            click: time,
-                            date: date
-                          });
                         }
                       });
 
