@@ -29,7 +29,7 @@
   <swiper-item scroll-y>
 
     <view class='clearflx'>
-
+    
       <text wx:if="{{yyy.number}}" class='outTime'>{{yyy.number}}</text>
 
       <icon class='iconfont icon-yaoyiyao yyy {{(yyy.state || yyy.look) ? "icon-up" : "" }}' bindtap='startYYY'></icon>

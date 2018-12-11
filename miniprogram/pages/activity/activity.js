@@ -30,7 +30,6 @@ Page({
   },
 
   onLoad: function(e) {
-    console.log(e)
     e.page && this.selectPage({
       target: {
         dataset: {
@@ -340,6 +339,9 @@ Page({
           if (!app.globalData.user) return _this.error = '请先点击授权';
 
           if (self.data.yyy.state && self.data.yyy.count) return _this.error = '正在进行活动!请稍后再试...';
+          
+          if (colling > Date.now()) return;
+          colling = Date.now() + 1000;
 
           // 如果是已参赛者 则 显示列表 否则 参赛
           yyyBase.where({
@@ -510,7 +512,7 @@ Page({
                                 });
 
                                 count && yyyBase.where({
-                                  count
+                                  count: _.gt(count)
                                 }).count({
                                   success: res => {
                                     _this.save('pm', res.total + 1);
